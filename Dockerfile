@@ -1,5 +1,15 @@
 FROM openjdk:17-slim
+
 WORKDIR /app
+
+# Copy all files
 COPY . .
-RUN javac -cp ".:mysql-connector-j-9.5.0.jar" src/com/movieexplorer/*.java
-CMD ["java", "-cp", ".:mysql-connector-j-9.5.0.jar", "com.movieexplorer.Main"]
+
+# Check if files exist
+RUN ls -la && echo "=== Java files ===" && find . -name "*.java" -type f
+
+# Compile ALL Java files
+RUN javac -cp "." $(find . -name "*.java")
+
+# Run Main class
+CMD ["java", "-cp", ".", "com.movieexplorer.Main"]
