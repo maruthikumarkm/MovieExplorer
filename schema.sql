@@ -1,7 +1,7 @@
 
 
 -- Create database
-CREATE DATABASE IF NOT EXISTS movie_explorer;
+USE if0_40968954_movie_explorer_db;
 
 -- Use database
 USE movie_explorer;
