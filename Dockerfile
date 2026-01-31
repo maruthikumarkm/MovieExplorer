@@ -2,14 +2,17 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-# Copy all files
+# Copy source code
 COPY . .
 
-# Check if files exist
-RUN ls -la && echo "=== Java files ===" && find . -name "*.java" -type f
+# Create output directory
+RUN mkdir -p out
 
-# Compile ALL Java files
-RUN javac -cp "." $(find . -name "*.java")
+# Compile Java files into out/
+RUN javac -d out $(find . -name "*.java")
 
-# Run Main class
-CMD ["java", "-cp", ".", "com.movieexplorer.Main"]
+# Debug: show compiled classes
+RUN echo "=== Compiled classes ===" && find out -name "*.class"
+
+# Run the app
+CMD ["java", "-cp", "out", "com.movieexplorer.Main"]
